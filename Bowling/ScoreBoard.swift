@@ -14,3 +14,8 @@ struct ScoreBoard {
     
     func frame(of index: Int) -> Frame { frames[index] }
 }
+
+struct TestScoreBoard {
+    let frame: TestFrame
+}
+

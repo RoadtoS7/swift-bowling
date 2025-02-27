@@ -14,11 +14,21 @@ struct BowlingPinCountReader: PinCountReader {
 }
 
 struct DefaultBowlingGameStateDelegate: BowlingGameStateDelegate {
+    func afterReceivePinCount(playerName: PlayerName, scoreBoard: Frame) {
+        
+    }
+    
     func afterReceivePinCount(playerName: PlayerName, scoreBoard: ScoreBoard) {
         let format = ScoreBoardFormat(playerName: playerName, bowlingFrames: scoreBoard)
         OutputView.print(scoreBoard: format.value)
     }
+    
+    func afterReceivePinCount(playerName: PlayerName, frame: TestFrame) {
+        let format = FrameFormat(playerName: playerName, frame: frame)
+        OutputView.print(scoreBoard: format.value)
+    }
 }
+
 
 do {
     let nameInput = InputView.readPlayerName()
@@ -27,7 +37,8 @@ do {
     let bowlingGame = BowlingGame(playerName: playerName,
                                   pinCountReader: BowlingPinCountReader(),
                                   stateDelegate: DefaultBowlingGameStateDelegate())
-    _ = try bowlingGame.start()
+    let testScoreBoard = try bowlingGame.start2()
+    
     
 } catch(let error) {
     OutputView.print(error: error)

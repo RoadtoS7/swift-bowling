@@ -9,5 +9,6 @@ import Foundation
 
 protocol BowlingGameStateDelegate {
     func afterReceivePinCount(playerName: PlayerName, scoreBoard: ScoreBoard)
+    func afterReceivePinCount(playerName: PlayerName, scoreBoard: Frame)
 }
 

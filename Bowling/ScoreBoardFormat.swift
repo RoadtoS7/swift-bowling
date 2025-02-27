@@ -151,3 +151,64 @@ struct ScoreBoardFormat {
         return ""
     }
 }
+
+struct FrameFormat {
+    let playerName: PlayerName
+    let frame: TestFrame
+    
+    var value: String {
+        let header = formatFrameIndex(with: BowlingConstant.maxFrameCount)
+        
+        
+        
+    }
+    
+    func format(testFrame: TestFrame) -> String {
+        var result = ""
+        
+        var currentFrame = frame
+        do {
+            switch currentFrame.state {
+            case is Ready:
+                break
+            case is FirstBowl:
+                let pinCount = currentFrame.state.score?.score ?? 0
+                result += frameText(value: pinCount)
+            case let frame as Spare:
+                frame.first.value + "/"
+            case is Strike:
+            case is Miss:
+                
+            }
+            currentFrame = currentFrame.next
+            
+        }
+    }
+    
+    private func formatFrameIndex(with frameTotalCount: Int) -> String {
+        return (1...frameTotalCount).reduce("| NAME |") { partialResult, index in
+            if index == BowlingConstant.maxFrameCount {
+                return partialResult + frameText(value: "\(index)") + delimiter
+            }
+            return partialResult + frameText(value: "0\(index)") + delimiter
+            
+        }
+    }
+    
+    func frameText(value: String) -> String {
+        if value.count == 1 {
+            return "  \(value)   "
+        }
+        if value.count == 2 {
+            return "  \(value)  "
+        }
+        if value.count == 3 {
+            return "  \(value) "
+        }
+        if value.count == 5 {
+            return "\(value) "
+        }
+        return ""
+    }
+    
+}

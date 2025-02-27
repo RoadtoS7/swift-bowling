@@ -14,4 +14,12 @@ struct PinCount: Equatable {
         if value < Int.zero { return nil }
         self.value = value
     }
+    
+    func isStrike() -> Bool {
+        value == BowlingConstant.pinCountOfStrike
+    }
+    
+    func isSpare(with pins: PinCount) -> Bool {
+        value + pins.value == BowlingConstant.pinCountOfStrike
+    }
 }
